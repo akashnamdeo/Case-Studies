@@ -1,44 +1,41 @@
-# Aerofit Case-Study
+# Target Case Study
 
 ## Description
-The market research team at AeroFit is focusing on enhancing their product recommendation system for treadmills. They aim to understand the distinct characteristics of their target audience for each type of treadmill offered. By identifying these characteristics, AeroFit intends to tailor their recommendations to new customers more effectively, ensuring that they match the right treadmill with the right customer profile. This analysis investigates whether there are significant differences in customer attributes across the different treadmill models and aims to provide insights that can guide more personalized marketing and sales strategies.
+Target is a renowned global retailer, known for providing exceptional value, innovation, and customer experience. This case study focuses on Target’s operations in Brazil, analyzing a dataset comprising 100,000 orders from 2016 to 2018. The dataset includes various dimensions such as order status, pricing, payment, freight performance, customer location, product attributes, and customer reviews. The goal is to derive insights that can enhance Target's operations in Brazil, including order processing, pricing strategies, payment and shipping efficiency, and customer satisfaction.
 
 ## Business Problem
-The market research team at AeroFit seeks to refine their product recommendation strategy by identifying and understanding the characteristics of the target audience for each type of treadmill. The objective is to analyze whether distinct customer profiles exist for different treadmill models and how these profiles can be leveraged to improve the accuracy of product recommendations. By differentiating customer characteristics associated with each treadmill type, AeroFit aims to enhance customer satisfaction and optimize their marketing efforts to align with customer preferences and needs.
+The objective is to analyze the dataset to uncover actionable insights that can help Target improve its operations in Brazil. This includes optimizing inventory management, enhancing delivery efficiency, and tailoring customer engagement strategies based on data-driven findings.
 
-This analysis will explore the variations in customer attributes, such as demographics and purchasing behavior, across various treadmill models to develop targeted recommendations for new customers and support strategic business decisions.
+## Business Insights
+- **Order Spike**: A significant spike in orders was observed in November 2017. Specifically, on November 24, 2017, there was a notable increase in orders due to the Black Friday Sale. [Source](https://www.independent.co.uk/news/world/black-friday-2017-brazil-shoppers-discount-sales-brazil-south-africa-a8073651.html)
+  
+- **Shopping Times**: Customers tend to place orders most frequently during the morning and afternoon hours.
 
-# Business Insights
+- **Customer Distribution**: The top three states—São Paulo (SP), Rio de Janeiro (RJ), and Minas Gerais (MG)—constitute about two-thirds of Target's customer base.
 
-## Attribute Ranges
-- **Product**: Three unique treadmill models: `KP281`, `KP481`, and `KP781`.
-- **Age**: Ranges from 18 to 50 years.
-- **Gender**: Two unique values: `Male` and `Female`.
-- **Education**: Ranges from 14 to 21 years.
-- **Marital Status**: Two unique values: `Single` and `Partnered`.
-- **Usage**: Six unique values: `3`, `2`, `4`, `5`, `6`, `7`.
-- **Usage Fitness**: Five unique values: `4`, `3`, `2`, `1`, `5`.
-- **Income**: Ranges from 29,562 to 104,581.
-- **Miles**: Ranges from 21 to 360 miles.
+- **Freight Value and Delivery Time**: States such as SP and Paraná (PR) have high mean freight values and extended estimated delivery times.
 
-## Variable Distributions and Relationships
-- **Age and Income**: Positive correlation; as age increases, income tends to increase.
-- **Product Usage**: Right-skewed; most customers use the treadmill less frequently.
-- **Education**: Spread across all age groups; neither normally distributed nor skewed.
-- **Usage**: Right-skewed; lower usage frequencies are more common.
-- **Fitness**: Normally distributed for `KP281` and `KP481`.
-- **Income**: Normally distributed for `KP281` and `KP481`.
-- **Miles**: Normally distributed for `KP781`.
+- **Freight and Delivery Correlation**: States with longer average delivery times generally have higher freight values.
 
-# Recommendations
-- **Age-Based Recommendation**: Customers over 40 years old prefer the `KP281` model. Recommend `KP281` to customers aged 40 and above.
-- **Education-Based Recommendation**: Customers with 12 to 18 years of education are the most frequent buyers. Recommend products based on this education range and consider `KP281` for customers with very low or very high education levels.
-- **Usage-Based Recommendation**: Customers who use the treadmill 3 days a week mostly prefer `KP281`. Recommend `KP281` to customers with a target usage of 3 days per week.
-- **Fitness-Based Recommendation**: Customers with an average fitness score of 3 prefer `KP281`. Recommend `KP281` to customers with an average fitness score.
-- **Income-Based Recommendation**: High-income customers prefer `KP781`, while those with mid-range income prefer both `KP281` and `KP481`. Recommend products based on income brackets:
-  - High income: `KP781`
-  - Mid-range income: `KP281` and `KP481`
-- **Mileage-Based Recommendation**: Customers with high mileage targets prefer `KP781`. Recommend `KP781` to customers with high mileage goals.
-- **Overall Preference**: `KP281` is the most preferred model overall. Recommend `KP281` to customers with no specific information available.
-- **Gender and Marital Status**: Male customers who are partnered have a higher probability of purchasing products. Consider this when recommending products to male, partnered customers.
+- **Delivery Efficiency**: States with shorter delivery times have lower freight values, while those with longer delivery times incur higher freight charges.
 
+- **Long Delivery Times**: In some states, the average delivery time extends to around a month.
+
+- **Estimated vs. Actual Delivery Dates**: For some states, the actual delivery date exceeds the estimated date by more than 15 days.
+
+## Recommendations
+1. **Inventory Management During Sales**: To handle the surge in orders during peak sale periods, such as Black Friday, ensure that inventory levels are adequately stocked. Special attention should be given to high-demand products based on customer preferences and historical sales data.
+
+2. **Optimized Customer Engagement**: Since customers place orders predominantly in the morning and afternoon, consider sending special offers and discount notifications during these times to maximize engagement and conversion.
+
+3. **Focus on Key States**: Maintain optimal inventory levels for states with high customer counts, including São Paulo, Rio de Janeiro, and Minas Gerais, to meet demand effectively and avoid stockouts.
+
+4. **Improve Freight Efficiency**: For states with high freight values and long delivery times, explore partnerships with delivery services or establish warehouses closer to these regions to reduce delivery times and costs.
+
+5. **Warehouse Placement**: Set up warehouses near states with high freight values to mitigate costs and improve delivery efficiency. This can significantly reduce freight charges and enhance overall service quality.
+
+6. **Delivery Partner Utilization**: In states with prolonged delivery times, consider using dedicated delivery partners to expedite the process and improve service reliability.
+
+7. **Address Delivery Delays**: For states where actual delivery dates significantly exceed estimated dates, establish local warehouses or collaborate with additional delivery partners to streamline operations and reduce delays.
+
+By implementing these recommendations, Target can enhance its operational efficiency, improve customer satisfaction, and strengthen its market presence in Brazil.
