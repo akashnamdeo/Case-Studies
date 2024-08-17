@@ -1,138 +1,162 @@
-# Ola Case-Study
+# LoanTap Case Study
 
-## Description
-This case study focuses on predicting driver attrition for Ola, a leading ride-hailing company. High churn rates among drivers present significant challenges, including increased recruitment costs and operational inefficiencies. By analyzing driver demographics, tenure, and performance data, we aim to develop models that can accurately predict driver attrition and provide actionable insights to improve retention.
+## Problem Statement
+LoanTap is an online platform committed to delivering customized loan products to millennials. The data science team at LoanTap is building an underwriting layer to determine the creditworthiness of MSMEs as well as individuals, specifically for Personal Loans.
 
-## Business Problem
-Recruiting and retaining drivers is a major challenge for Ola due to high churn rates. Drivers can easily switch to competitors like Uber, leading to increased acquisition costs and impacting organizational morale. The goal is to predict whether a driver will leave the company based on various attributes and develop strategies to reduce attrition.
+Given a set of attributes for an Individual, determine if a credit line should be extended to them. If so, what should the repayment terms be?
 
 ## Data Information
 ![alt text](image.png)
-The dataset contains monthly information for a segment of drivers for the years 2019 and 2020. The attributes include:
+The dataset consists of the following attributes:
 
-- Demographics: city, age, gender, etc.
-- Tenure information: joining date, last date
-- Historical performance data: quarterly rating, monthly business acquired, grade, income
+- `loan_amnt`: The listed amount of the loan applied for by the borrower.
+- `term`: The number of payments on the loan. Values are in months and can be either 36 or 60.
+- `int_rate`: Interest Rate on the loan.
+- `installment`: The monthly payment owed by the borrower if the loan originates.
+- `grade`: LoanTap assigned loan grade.
+- `sub_grade`: LoanTap assigned loan subgrade.
+- `emp_title`: The job title supplied by the Borrower when applying for the loan.
+- `emp_length`: Employment length in years.
+- `home_ownership`: The home ownership status provided by the borrower.
+- `annual_inc`: The self-reported annual income provided by the borrower.
+- `verification_status`: Indicates if income was verified by LoanTap.
+- `issue_d`: The month which the loan was funded.
+- `loan_status`: Current status of the loan - Target Variable.
+- `purpose`: A category provided by the borrower for the loan request.
+- `title`: The loan title provided by the borrower.
+- `dti`: Debt-to-income ratio.
+- `earliest_cr_line`: The month the borrower's earliest reported credit line was opened.
+- `open_acc`: The number of open credit lines in the borrower's credit file.
+- `pub_rec`: Number of derogatory public records.
+- `revol_bal`: Total credit revolving balance.
+- `revol_util`: Revolving line utilization rate.
+- `total_acc`: The total number of credit lines currently in the borrower's credit file.
+- `initial_list_status`: The initial listing status of the loan.
+- `application_type`: Indicates whether the loan is an individual or joint application.
+- `mort_acc`: Number of mortgage accounts.
+- `pub_rec_bankruptcies`: Number of public record bankruptcies.
+- `address`: Address of the individual.
 
-## Business Insights
-### Driver Age Distribution
-- **Insight:** Drivers aged between 20 and 25 contribute to over 20% of the total driver base.
-- **Implication:** This age group is significant in the driver pool and may require targeted retention strategies.
-
-### Gender Distribution
-- **Insight:** The driver base consists of 58% male and 42% female drivers.
-- **Implication:** Gender distribution is reasonably balanced but could influence targeted marketing and support programs.
-
-### City Distribution
-- **Insight:** Data is uniformly spread across 29 unique cities.
-- **Implication:** This suggests a broad geographical coverage but may require city-specific strategies to address local variations.
-
-### Correlation with Has_Left
-![alt text](image-1.png)
-- **Insight:** Strong correlations exist between Has_Left and several features including Income_mean, Income_max, Grade_mean, Total_business_value_mean, Quarterly_rating, Income_increased, and Quarterly_rating_increased.
-- **Implication:** These factors are significant predictors of driver attrition.
-
-### Outliers
-![alt text](image-2.png)
-- **Insight:** Numerical columns contain significant outliers.
-- **Implication:** Outliers could impact model performance but were addressed post-initial model building, showing no significant impact.
-
-### High Attrition by Grade
-- **Insight:** 80% of drivers in Grade 1 have left.
-- **Implication:** Grade 1 drivers are at a higher risk of attrition.
-
-### Quarterly Rating Increase
-- **Insight:** 75% of drivers whose Quarterly Rating Increased have left.
-- **Implication:** This suggests that despite improvement in ratings, these drivers are leaving, indicating potential underlying dissatisfaction.
-
-### Income Impact
-- **Insight:** 68% of drivers whose income did not increase have left.
-- **Implication:** Income growth is a significant factor in driver retention.
-
-### Tenure and Attrition
-- **Insight:** 88% of drivers who have spent 5 years at the company have left, with a notable spike in attrition around the 5-year mark.
-- **Implication:** Driver tenure significantly impacts attrition.
-
-## EDA
+## Data Analysis
 ### Variable Distributions and Relationships
-- Analyzed the distribution of demographic variables such as age, gender, and city.
-- Explored the relationships between tenure information, performance metrics, and attrition rates.
-- Identified significant predictors of attrition through correlation analysis.
-
-## Model Building Approaches
-- **Ensemble Learning: Bagging and Boosting**
-  - Implemented various ensemble learning techniques to improve model performance.
-- **KNN Imputation**
-  - Used KNN imputation to handle missing values.
-- **Imbalanced Dataset Handling**
-  - Applied techniques like SMOTE to address class imbalance but observed limited improvement.
-- **Feature Scaling and Selection**
-  - Tree-based models were used, making feature scaling irrelevant. Feature selection using VIF and outlier removal were not helpful.
-
-## Model Insights
-### Overall Performance
-- **Best Overall Precision:** TunedRF (0.9331)
-- **Best Overall Recall:** Simple GB (0.9025)
-- **Best Overall F1 Score:** TunedGB (0.9013)
-- **Best ROC AUC:** TunedGB (0.9286)
-
-### Class-wise Performance
-- **Class 0 Precision:** Simple GB (0.8000), Simple LGBM (0.7778)
-- **Class 0 Recall:** TunedRF (0.8805), TunedXGB (0.7799)
-- **Class 1 Precision:** TunedRF (0.9331)
+- **Loan Tenure Impact**:
+![alt text](image-1.png)
+  - 60 Months Tenure: 68% of individuals fully repaid their loan.
+  - 36 Months Tenure: 84% of individuals fully repaid their loan.
+- **Loan Repayment by Grade**:
+![alt text](image-2.png)
+  - Grade A: 93% of individuals fully repaid their loan.
+- **Job Roles and Loan Repayment**:
 ![alt text](image-3.png)
+  - Top Job Roles for Full Repayment: Teacher, Project Manager, Manager.
+- **Irrelevant Factors**:
 ![alt text](image-4.png)
-![alt text](image-5.png)
-- **Class 1 Recall:** Simple GB (0.9025), Simple XGB (0.8868)
-
-### Trade-offs
-- **TunedGB** offers the best balance between precision, recall, and F1 score, with high ROC AUC.
+  - Employment Length and Verification Status: No significant effect on loan repayment.
+- **Charged-Off Loans**:
+  - Top Categories: Small Business and General Business.
+- **Outlier Treatment**:
+  - Continuous variables are treated for outliers using the Z-score strategy.
+- **Significant Impact Analysis**:
 ![alt text](image-6.png)
-![alt text](image-7.png)
-![alt text](image-8.png)
+  - Chi-square tests show a significant impact of categorical variables on the target variable.
+- **Correlation Insights**:
+![alt text](image-5.png)
+  - High correlation between Installment and Interest Rate, and between Open Account and Total Account.
+
+### Data Cleaning
+- No duplicates found.
+- Missing values (NaN) treated with Simple Imputer using the Median.
+
+### Categorical Data Encoding
+- Columns with fewer categories are converted to numerical values using One-Hot Encoding (OHE).
+- Columns with more categories are encoded using Label Encoding.
+
+## Model Building
+### Logistic Regression Model Summary
+#### Initial Model Performance
+- **Train Metrics**:
+  - ROC AUC Score: 0.7093
+  - Precision: 0.8138
+  - Recall: 0.9823
+  - F1 Score: 0.8901
+  - Accuracy: 0.8052
+- **Test Metrics**:
+  - ROC AUC Score: 0.7089
+  - Precision: 0.8149
+  - Recall: 0.9824
+  - F1 Score: 0.8908
+  - Accuracy: 0.8064
+- **Issue**:
+  - High false positives
+  ![alt text](image-7.png)
+
+### Model with Balanced Weights
+- **Train Metrics**:
+  - ROC AUC Score: 0.7094
+  - Precision: 0.8829
+  - Recall: 0.6667
+  - F1 Score: 0.7597
+  - Accuracy: 0.6611
+- **Test Metrics**:
+  - ROC AUC Score: 0.7090
+  - Precision: 0.8841
+  - Recall: 0.6680
+  - F1 Score: 0.7610
+  - Accuracy: 0.6628
+- **Issue**:
+  - Decreased recall and performance in handling false negatives
+  ![alt text](image-8.png)
+
+### Model with VIF (Variance Inflation Factor)
 ![alt text](image-9.png)
-- **TunedRF** has the highest precision for Class 1 but slightly lower recall.
-- Simple models generally provide less optimal performance compared to their tuned counterparts, highlighting the effectiveness of hyperparameter tuning.
+- No significant improvement observed.
 
-### Model Selection Guidance
-- **For Balanced Precision and Recall:** TunedGB is a strong choice.
-- **For High Precision in Class 1:** TunedRF is preferable, especially if the cost of false positives is high.
-- **For Class 0 Performance:** Simple GB and Simple LGBM might be more suitable if Class 0 is critical and recall is important.
+### Model with Different Alpha (L2 Regularization)
+- **Best Parameters (C = 0.1000)**:
+  - Precision: 0.8149
+  - Recall: 0.9824
+  - F1 Score: 0.8908
+  - Accuracy: 0.8064
+  - ROC AUC Score: 0.7089
+- **Issue**:
+  - High false positives and false negatives persist
+  ![alt text](image-10.png)
 
-### FP and FN Insights
-- **TunedRF** has the highest false negatives, suggesting it misses many actual positives but is effective where false positives are more acceptable.
-- **TunedGB** offers balanced performance with moderate FP and FN, making it good for general-purpose use.
-- **TunedLGBM** has similar characteristics to TunedGB, making it versatile for varied applications.
-- Simple models generally have moderate performance metrics.
+### Model with SMOTE (Synthetic Minority Over-sampling Technique)
+- **Outcome**:
+  - Precision did not improve significantly.
+  ![alt text](image-11.png)
+  ![alt text](image-12.png)
+
+### Model with Polynomial Features
+- **Result**:
+  - ROC AUC Score decreased from 0.70 to 0.55.
+
+## Best Model
+- **Logistic Regression with Different Alpha (C = 0.1000)**:
+  - Precision: 0.8149
+  - Recall: 0.9824
+  - F1 Score: 0.8908
+  - Accuracy: 0.8064
+  - ROC AUC Score: 0.7089
+  ![alt text](image-13.png)
 
 ## Recommendations
-### Targeted Retention Strategies for Young Drivers
-- **Recommendation:** Develop retention programs specifically designed for drivers aged 20-25, including career development opportunities, performance incentives, and enhanced support systems.
+### Action: Collect More Comprehensive Data
+- **Recommendation**: Integrate additional data sources such as social media profiles, payment histories, and utility bill records to enhance credit assessments.
 
-### Gender-Specific Support Programs
-- **Recommendation:** Implement support and engagement programs tailored to both male and female drivers, considering their different needs and preferences.
+### Action: Deploy Advanced Models
+- **Recommendation**: Use Gradient Boosting Machines (GBM) or XGBoost for improved credit risk predictions.
 
-### City-Specific Strategies
-- **Recommendation:** Analyze driver attrition patterns in different cities and develop localized strategies to improve driver satisfaction and retention.
+### Action: Enhance Feature Engineering
+- **Recommendation**: Include features like debt-to-income ratio, employment stability, credit utilization rate, and historical repayment behavior to refine the model.
 
-### Focus on Key Predictors of Attrition
-- **Recommendation:** Use features such as Income_mean, Income_max, Grade_mean, Total_business_value_mean, Quarterly_rating, Income_increased, and Quarterly_rating_increased to build predictive models. Implement targeted interventions based on these predictors to reduce attrition.
+### Action: Personalize Repayment Terms
+- **Recommendation**: Develop customized loan terms based on individual financial profiles and risk assessments.
 
-### Address Driver Attrition in Grade 1
-- **Recommendation:** Investigate the reasons for high attrition among Grade 1 drivers and develop tailored retention initiatives, such as career advancement programs or increased support.
-
-### Investigate Quarterly Rating Increase
-- **Recommendation:** Analyze why drivers with increased Quarterly Ratings are leaving. Consider implementing feedback mechanisms or adjusting performance evaluation criteria to address potential issues.
-
-### Enhance Income Growth Opportunities
-- **Recommendation:** Ensure that income growth opportunities are available and clearly communicated to drivers. Consider introducing regular reviews and incentives to improve income satisfaction.
-
-### Develop Programs for Long-Tenure Drivers
-- **Recommendation:** Create retention strategies focused on drivers approaching the 5-year tenure mark. Offer incentives, career development programs, or role enhancements to retain these drivers.
-
-### Review and Manage Outliers
-- **Recommendation:** Review the impact of outliers in numerical columns post-initial model building and adjust models or strategies accordingly to mitigate any negative effects.
+### Action: Monitor and Update Regularly
+- **Recommendation**: Continuously review and adjust the model based on performance metrics and real-world feedback.
 
 ---
 
-By addressing these insights and implementing the recommendations, Ola can improve driver retention, reduce costs, and enhance overall operational efficiency.
+This README provides an overview of the LoanTap case study, detailing the problem statement, data analysis, model building process, and actionable recommendations for improving the loan underwriting process.
