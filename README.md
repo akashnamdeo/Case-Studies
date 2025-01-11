@@ -205,12 +205,207 @@ roughly 10% predictions are wrong, with respect to the mean.
 In this approach we go back say 1 year for every point in test data and populate the same value.
 Here :
     MAE : 2177664.484
+
     RMSE : 2871461.05
+
     MAPE: 0.126
 
 ### Drift method
 ![alt text](image-23.png)
 
 yt+h = yt + h*Slope
+
 yt+1 = yt + 1*(yt-y0/t) 
+
+
+### Smoothing based methods
+
+### 1. Moving average
+![alt text](image-24.png)
+
+Taking the average of last 3 values and populating it. After 3rd iteration this becomes completely flat.
+
+### 2. Exponential smoothing
+yt = alpha * yt-1 + (1-alpha) * yHatt (Recursive formulation)
+
+![alt text](image-25.png)
+
+### 3. Adding trend to exponential smoothing
+![alt text](image-26.png)
+
+Its little better than simple exponential smoothing.
+
+### 4. Triple Exponential smoothing (Add trend and seasonality)
+![alt text](image-27.png)
+THE MAPE is 6.5%, the best till now
+
+## Stationarity of data.
+
+### why we need to check for stationarity in time series?
+ARIMA family requires the time series to be stationary.
+
+### how we will find series is stationary?
+adfuller test
+
+p-value > 0.05: This means that we fail to reject the null hypothesis, and the time series is likely non-stationary.
+
+### before vs after making series stationary(Trend removed).
+![alt text](image-28.png)
+
+![alt text](image-29.png)
+
+### removing seasonality from data
+
+![alt text](image-30.png)
+
+### removing trend and seasonality both from series
+
+![alt text](image-31.png)
+
+### plotting ACF and PACF
+
+![alt text](image-32.png)
+
+![alt text](image-33.png)
+
+![alt text](image-34.png)
+
+![alt text](image-35.png)
+
+ACF shows correlation between the lagged values and PACF shows correlation when intermediate effect is removed.
+
+## ARIMA Family of Forecasting Techniques
+
+### 1. AR
+order = (1,0,0)
+![alt text](image-36.png)
+
+with the help of acf and pacf we figure out the value of p.
+![alt text](image-37.png)
+
+order = (21,0,0)
+
+![alt text](image-38.png)
+Error is around 7%
+
+### 2. MA
+order=(0, 0, 7)
+Learn from previous errors.
+
+![alt text](image-39.png)
+
+![alt text](image-40.png)
+
+Error is increased to  8%
+
+### 3. ARMA
+AR MA combined power.
+
+order=(7, 0, 7)
+
+![alt text](image-41.png)
+
+Error again dropped to 7%
+
+### 4. ARIMA
+ order=(7, 1, 7) 1st order differencing
+![alt text](image-42.png)
+
+Error dropped to 6.6%
+
+2nd order diferencing order=(7, 2, 7)
+![alt text](image-43.png)
+
+Error dropped to 6.4%
+
+### ARIMA with seasonality SARIMAX
+
+
+
+#### Define ranges for p, d, q (non-seasonal) and P, D, Q, s (seasonal)
+p = d = q = range(0, 2)  # Try values from 0 to 2 for p, d, q
+P = D = Q = range(0, 2)  # Seasonal range 0 or 1
+s = [7]  # Example: Weekly seasonality
+
+![alt text](image-44.png)
+
+12.8 MAPE which is bad.
+
+#### Lets add exog variable
+
+![alt text](image-45.png)
+
+Error dropped to 4%, extremely good result.
+
+
+## Conclusion
+
+
+ Summary of MAPE values for different methods and models**
+
+| **Method/Model**                                            | **MAPE (%)** |
+| ----------------------------------------------------------- | ------------ |
+| Forecasting Mean                                            | 8.2          |
+| Naive Approach                                              | 8.7          |
+| Seasonal Naïve                                              | 12.6         |
+| Drift Method                                                | 8.5          |
+| Moving Average Forecasting                                  | 12.4         |
+| Simple Exponential Smoothing                                | 9.0          |
+| Adding Trend to Exponential Smoothing                       | 8.7          |
+| Triple Exponential Smoothing                                | 6.5          |
+| AR                                                          | 7.0          |
+| MA                                                          | 8.0          |
+| ARMA                                                        | 7.0          |
+| ARIMA                                                       | 6.0          |
+| SARIMAX                                                     | 6.0          |
+| English Language with Hyperparameter Tuning                 | 12.0         |
+| English Language with Tuning and Exogenous Variable         | 4.0          |
+| Time Series with Linear Regression (`de` language)          | 4.0          |
+| FB Prophet (`de` language)                                  | 5.0          |
+| FB Prophet with Seasonalities and Regressor (`de` language) | 4.0          |
+
+
+**MAPE for SARIMAX with Hyperparameter Tuning (other languages):**
+
+| **Language** | **MAPE (%)** |
+| ------------ | ------------ |
+| `es`         | 19.0         |
+| `fr`         | 7.0          |
+| `ja`         | 9.0          |
+| `ru`         | 14.0         |
+| `zh`         | 5.0          |
+
+
+## Business Recommendation:
+
+Focus Ad Investments on High-View Languages
+Prioritize advertising strategies for languages with the highest view counts, particularly English (en), which accounts for the largest audience, followed by Spanish (es) and German (de).
+
+Leverage Regional and Language-Specific Insights
+Tailor ad campaigns to capitalize on regional view variations by optimizing content for specific cultures and languages, improving ad relevance and engagement.
+
+Adopt SARIMAX Models for Better Accuracy
+Use SARIMAX models with hyperparameter tuning for accurate predictions, especially for languages like fr, ja, and zh, where the MAPE is below 10%, ensuring higher ROI for localized ad campaigns.
+
+Capitalize on Time Series Models with Exogenous Variables
+Deploy models like SARIMAX with exogenous variables (e.g., external events or holidays) for English pages, which achieved the lowest MAPE (4.0%), boosting forecast accuracy and strategic decision-making.
+
+Implement FB Prophet for Specific Use Cases
+Utilize FB Prophet models for de language, especially with seasonal and holiday regressors, which also achieved a MAPE of 4.0%, offering a robust forecasting option for time-sensitive campaigns.
+
+Develop a Multi-Layered Forecasting Strategy
+Use ARIMA and SARIMAX for large-scale forecasting, and employ simpler methods like Exponential Smoothing for quick insights when precision is less critical.
+
+Focus on Emerging Audiences
+Explore opportunities to grow ad presence in languages with moderate views, such as ru, fr, and ja, where there is potential for significant audience engagement improvement.
+
+Allocate Resources for Highly Seasonal Pages
+Pages with strong seasonal patterns can drive specific time-bound campaigns. Use decomposition analysis to identify these pages and align ad spending with peak periods.
+
+Refine Forecast Models for High-MAPE Languages
+Invest in refining prediction methods for languages with higher errors, like Spanish (es), which shows a MAPE of 19%. Incorporate additional data features to improve accuracy.
+
+Enhance Scalability Through Automated Methods
+Use Auto ARIMA or other automated parameter optimization methods to handle the scalability challenge effectively for 145,000 pages, reducing manual intervention while maintaining accuracy.
+
 
